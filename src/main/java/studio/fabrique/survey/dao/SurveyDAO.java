@@ -5,6 +5,7 @@ import studio.fabrique.survey.model.Question;
 import studio.fabrique.survey.model.Survey;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 
 @Component
@@ -24,4 +25,40 @@ public class SurveyDAO {
         return surveyRepository.findAll();
     }
 
+    public void deleteSurvey(Long surveyId) {
+        surveyRepository.deleteById(surveyId);
+    }
+
+    public void changeSurvey(Long surveyId, String name, LocalDate endDate, String description, List<Question> questions) {
+        Survey survey = surveyRepository.findById(surveyId).orElse(null);
+        if (survey == null) return;
+        survey.setName(name);
+        survey.setEndDate(endDate);
+        survey.setDescription(description);
+        survey.setQuestions(questions);
+        surveyRepository.save(survey);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

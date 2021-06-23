@@ -51,6 +51,22 @@ public class Survey {
         return id;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setQuestions(List<Question> questions) {
+        this.questions = questions;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }

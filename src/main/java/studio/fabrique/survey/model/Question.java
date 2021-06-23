@@ -4,6 +4,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.Objects;
+
 @Table("questions")
 public class Question {
 
@@ -11,26 +13,25 @@ public class Question {
     private Long id;
     private QuestionType type;
     private String text;
-
-//    @PersistenceConstructor
-//    public Question(long id, String type, String test) {
-//        switch (type) {
-//            case ("T"):
-//                this.type = QestionType.TEXT;
-//                break;
-//            case ("1"):
-//                this.type = QestionType.ONE_CHECK;
-//                break;
-//            case ("0"):
-//                this.type = QestionType.SEVERAL_CHECK;
-//                break;
-//        }
-//        this.text = text;
-//    }
+    private Long surveyId;
 
     public Question(QuestionType type, String text) {
         this.type = type;
         this.text = text;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return type == question.type &&
+                Objects.equals(text, question.text);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, text);
     }
 
     public QuestionType getType() {
@@ -39,5 +40,17 @@ public class Question {
 
     public String getText() {
         return text;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setSurveyId(Long surveyId) {
+        this.surveyId = surveyId;
     }
 }

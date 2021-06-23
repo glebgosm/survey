@@ -5,4 +5,5 @@ import studio.fabrique.survey.model.Survey;
 
 public interface SurveyRepository extends CrudRepository<Survey,Long> {
 
+
 }

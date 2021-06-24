@@ -8,11 +8,17 @@
 		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+
 	<groupId>studio.fabrique</groupId>
 	<artifactId>survey</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<name>survey</name>
+
 	<description>Survey manager</description>
+
+	<packaging>jar</packaging>
+
 	<properties>
 		<java.version>11</java.version>
 	</properties>

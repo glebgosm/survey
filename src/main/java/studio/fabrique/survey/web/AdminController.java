@@ -29,8 +29,8 @@ public class AdminController {
      */
     @PostMapping(path="/surveys")
     public ResponseEntity createSurvey(@RequestParam("user") String username,
-                                          @RequestParam("password") String password,
-                                          @RequestBody SurveyDTO surveyDTO)
+                                       @RequestParam("password") String password,
+                                       @RequestBody SurveyDTO surveyDTO)
     {
         if (!isAdmin(username, password))
             return new ResponseEntity<String>("Access denied", HttpStatus.UNAUTHORIZED);

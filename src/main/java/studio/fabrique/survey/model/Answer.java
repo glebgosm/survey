@@ -4,6 +4,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+/**
+ * User answer to a particular Question
+ */
 @Table("answers")
 public class Answer {
     @Id

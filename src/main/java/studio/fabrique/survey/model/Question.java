@@ -7,9 +7,11 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
 
+/**
+ * A question of a survey
+ */
 @Table("questions")
 public class Question {
-
     @Id
     @Column("id")
     private Long id;

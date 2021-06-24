@@ -7,6 +7,9 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
+/**
+ * User answers to a particular Survey
+ */
 @Table("answered_surveys")
 public class AnsweredSurvey {
     @Id

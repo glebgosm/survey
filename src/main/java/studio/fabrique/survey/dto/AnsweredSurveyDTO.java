@@ -4,6 +4,9 @@ import studio.fabrique.survey.model.Answer;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object for AnsweredSurvey
+ */
 public class AnsweredSurveyDTO {
     private Long surveyId;
     private Long userId;

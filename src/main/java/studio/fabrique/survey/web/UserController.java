@@ -9,6 +9,9 @@ import studio.fabrique.survey.dto.AnsweredSurveyDTO;
 import studio.fabrique.survey.model.AnsweredSurvey;
 import studio.fabrique.survey.model.Survey;
 
+/**
+ * Controller for user requests
+ */
 @RestController
 public class UserController {
 
@@ -29,9 +32,8 @@ public class UserController {
         return surveyDAO.getSurveys();
     }
 
-
     /**
-     * Get surveys completed by a user.
+     * Get surveys completed by the user.
      * @param userId user id
      * @return
      */
@@ -50,7 +52,7 @@ public class UserController {
                 answeredSurveyDTO.getSurveyId(),
                 answeredSurveyDTO.getUserId(),
                 answeredSurveyDTO.getAnswers());
-        return new ResponseEntity<String>("Thank you for yor answers!", HttpStatus.CREATED);
+        return new ResponseEntity<String>("Thank you for your answers!", HttpStatus.CREATED);
     }
 
 }

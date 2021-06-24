@@ -7,16 +7,10 @@ import studio.fabrique.survey.dao.AnsweredSurveyDAO;
 import studio.fabrique.survey.dao.SurveyDAO;
 import studio.fabrique.survey.dto.SurveyDTO;
 import studio.fabrique.survey.model.Question;
-import studio.fabrique.survey.model.QuestionType;
-import studio.fabrique.survey.model.Survey;
 
-import javax.annotation.PostConstruct;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
+/**
+ * Controller for admin requests
+ */
 @RestController
 public class AdminController {
 
@@ -28,30 +22,17 @@ public class AdminController {
         this.answeredSurveyDAO = answeredSurveyDAO;
     }
 
-    //@PostConstruct
-    public void createTempSurveys() {
-        Question q1 = new Question(QuestionType.TEXT, "Question1?");
-        Question q2 = new Question(QuestionType.TEXT, "Question2?");
-        List<Question> questions = new ArrayList<>();
-        Collections.addAll(questions, q1, q2);
-        surveyDAO.createSurvey("Survey1",
-                LocalDate.now(),
-                LocalDate.now().plus(1, ChronoUnit.DAYS),
-                "Description",
-                questions);
-    }
-
     /**
      * Add a new survey.
      * @param surveyDTO
      * @return Survey instance
      */
     @PostMapping(path="/surveys")
-    public ResponseEntity<?> createSurvey(@RequestParam("user") String username,
+    public ResponseEntity createSurvey(@RequestParam("user") String username,
                                           @RequestParam("password") String password,
                                           @RequestBody SurveyDTO surveyDTO)
     {
-        if (!"admin".equalsIgnoreCase(username) || !"admin".equalsIgnoreCase(password))
+        if (!isAdmin(username, password))
             return new ResponseEntity<String>("Access denied", HttpStatus.UNAUTHORIZED);
         for (Question q : surveyDTO.getQuestions())
             q.setId(null);
@@ -62,22 +43,34 @@ public class AdminController {
                 surveyDTO.getDescription(),
                 surveyDTO.getQuestions()
         );
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity(HttpStatus.CREATED);
     }
 
     /**
      * Delete a survey.
      */
     @DeleteMapping("/surveys/{surveyId}")
-    public void deleteSurvey(@PathVariable Long surveyId) {
+    public ResponseEntity deleteSurvey(@PathVariable Long surveyId,
+                                       @RequestParam("user") String username,
+                                       @RequestParam("password") String password)
+    {
+        if (!isAdmin(username, password))
+            return new ResponseEntity<String>("Access denied", HttpStatus.UNAUTHORIZED);
         surveyDAO.deleteSurvey(surveyId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     /**
      * Change a survey.
      */
     @PostMapping("/surveys/{surveyId}")
-    public void changeSurvey(@PathVariable Long surveyId, @RequestBody SurveyDTO surveyDTO) {
+    public ResponseEntity changeSurvey(@PathVariable Long surveyId,
+                                       @RequestParam("user") String username,
+                                       @RequestParam("password") String password,
+                                       @RequestBody SurveyDTO surveyDTO)
+    {
+        if (!isAdmin(username, password))
+            return new ResponseEntity<String>("Access denied", HttpStatus.UNAUTHORIZED);
         surveyDAO.changeSurvey(
                 surveyId,
                 surveyDTO.getName(),
@@ -85,9 +78,13 @@ public class AdminController {
                 surveyDTO.getDescription(),
                 surveyDTO.getQuestions()
         );
-
+        return new ResponseEntity(HttpStatus.OK);
     }
 
+    private boolean isAdmin(String username, String password) {
+        return "admin".equalsIgnoreCase(username) &&
+               "admin".equalsIgnoreCase(password);
+    }
 
 }
 

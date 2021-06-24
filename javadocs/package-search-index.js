@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"studio.fabrique.survey"},{"l":"studio.fabrique.survey.dao"},{"l":"studio.fabrique.survey.dto"},{"l":"studio.fabrique.survey.model"},{"l":"studio.fabrique.survey.web"}]

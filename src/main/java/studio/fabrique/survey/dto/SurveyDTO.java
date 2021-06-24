@@ -6,6 +6,9 @@ import studio.fabrique.survey.model.Question;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Data Transfer Object for Survey
+ */
 public class SurveyDTO {
 
     private String name;

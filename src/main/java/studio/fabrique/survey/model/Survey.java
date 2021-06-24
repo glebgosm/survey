@@ -1,6 +1,5 @@
 package studio.fabrique.survey.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
@@ -9,6 +8,9 @@ import org.springframework.data.relational.core.mapping.Table;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * A survey containing a list of questions
+ */
 @Table("surveys")
 public class Survey {
     @Id

@@ -1,33 +1,21 @@
 package studio.fabrique.survey;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.util.ResourceUtils;
-import studio.fabrique.survey.dao.AnsweredSurveyDAO;
-import studio.fabrique.survey.dao.AnsweredSurveyRepository;
-import studio.fabrique.survey.dao.SurveyDAO;
-import studio.fabrique.survey.dao.SurveyRepository;
-import studio.fabrique.survey.model.AnsweredSurvey;
-
-
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -63,6 +51,25 @@ public class SurveyControllerTests {
         MockHttpServletRequestBuilder request;
         request = MockMvcRequestBuilders.get("/surveys");
         mockMvc.perform(request).andExpect(jsonPath("$.length()").value(2));
+    }
+
+    @Test
+    public void deleteSurvey() throws Exception {
+        MockHttpServletRequestBuilder request;
+        request = MockMvcRequestBuilders.delete("/surveys/0?user=admin&password=admin");
+        mockMvc.perform(request).andExpect(status().isOk());
+    }
+
+    @Test
+    public void changeSurvey() throws Exception {
+        String requestBody = loadFile("survey2.json");
+        MockHttpServletRequestBuilder request;
+        request = MockMvcRequestBuilders
+                    .post("/surveys/0?user=admin&password=admin")
+                    .content(requestBody)
+                    .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(request)
+               .andExpect(status().isOk());
     }
 
     @Test

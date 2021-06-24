@@ -1,6 +1,8 @@
 package studio.fabrique.survey.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -10,10 +12,15 @@ import java.util.List;
 @Table("surveys")
 public class Survey {
     @Id
+    @Column("id")
     private Long id;
+    @Column("name")
     private String name;
+    @Column("start_date")
     private final LocalDate startDate;
+    @Column("end_date")
     private LocalDate endDate;
+    @Column("description")
     private String description;
 
     @MappedCollection(idColumn = "survey_id", keyColumn = "ordinal")

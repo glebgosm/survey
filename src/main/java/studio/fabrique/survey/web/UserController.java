@@ -1,5 +1,7 @@
 package studio.fabrique.survey.web;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import studio.fabrique.survey.dao.AnsweredSurveyDAO;
 import studio.fabrique.survey.dao.SurveyDAO;
@@ -43,11 +45,12 @@ public class UserController {
      * @param answeredSurveyDTO
      */
     @PostMapping("/completed_surveys")
-    public void sendAnsweredSurvey(@RequestBody AnsweredSurveyDTO answeredSurveyDTO){
+    public ResponseEntity<?> sendAnsweredSurvey(@RequestBody AnsweredSurveyDTO answeredSurveyDTO){
         answeredSurveyDAO.createAnsweredSurvey(
                 answeredSurveyDTO.getSurveyId(),
                 answeredSurveyDTO.getUserId(),
                 answeredSurveyDTO.getAnswers());
+        return new ResponseEntity<String>("Thank you for yor answers!", HttpStatus.CREATED);
     }
 
 }

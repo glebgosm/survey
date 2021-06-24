@@ -1,0 +1,19 @@
+{
+  "name" : "Survey 2",
+  "startDate" : "2000-01-05",
+  "endDate" : "2010-01-05",
+  "description" : "Test Survey",
+  "questions" :
+  [
+    {
+      "id" : 123,
+      "type" : "TEXT",
+      "text" : "What is your name???"
+    } ,
+    {
+      "id" : 1234,
+      "type" : "TEXT",
+      "text" : "What is your age???"
+    }
+  ]
+}

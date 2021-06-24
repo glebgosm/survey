@@ -1,5 +1,7 @@
 package studio.fabrique.survey.web;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import studio.fabrique.survey.dao.AnsweredSurveyDAO;
 import studio.fabrique.survey.dao.SurveyDAO;
@@ -45,16 +47,22 @@ public class AdminController {
      * @return Survey instance
      */
     @PostMapping(path="/surveys")
-    public Survey createSurvey(@RequestBody SurveyDTO surveyDTO) {
+    public ResponseEntity<?> createSurvey(@RequestParam("user") String username,
+                                          @RequestParam("password") String password,
+                                          @RequestBody SurveyDTO surveyDTO)
+    {
+        if (!"admin".equalsIgnoreCase(username) || !"admin".equalsIgnoreCase(password))
+            return new ResponseEntity<String>("Access denied", HttpStatus.UNAUTHORIZED);
         for (Question q : surveyDTO.getQuestions())
             q.setId(null);
-        return surveyDAO.createSurvey(
+        surveyDAO.createSurvey(
                 surveyDTO.getName(),
                 surveyDTO.getStartDate(),
                 surveyDTO.getEndDate(),
                 surveyDTO.getDescription(),
                 surveyDTO.getQuestions()
         );
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     /**

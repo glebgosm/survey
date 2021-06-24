@@ -2,6 +2,7 @@ package studio.fabrique.survey.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Objects;
@@ -10,9 +11,13 @@ import java.util.Objects;
 public class Question {
 
     @Id
+    @Column("id")
     private Long id;
+    @Column("type")
     private QuestionType type;
+    @Column("text")
     private String text;
+    @Column("survey_id")
     private Long surveyId;
 
     public Question(QuestionType type, String text) {

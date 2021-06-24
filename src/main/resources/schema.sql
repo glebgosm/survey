@@ -14,9 +14,13 @@ CREATE TABLE IF NOT EXISTS "questions" (
     ordinal     BIGINT NOT NULL  -- question number in its survey
 );
 
+CREATE TABLE IF NOT EXISTS "users" (
+    id         BIGSERIAL PRIMARY KEY NOT NULL
+);
+
 CREATE TABLE IF NOT EXISTS "answered_surveys" (
     id         BIGSERIAL PRIMARY KEY NOT NULL,
-    user_id    BIGINT NOT NULL,
+    user_id    BIGINT NOT NULL REFERENCES users(id),
     survey_id  BIGINT NOT NULL REFERENCES surveys(id)
 );
 
@@ -27,6 +31,3 @@ CREATE TABLE IF NOT EXISTS "answers" (
     answer              VARCHAR(1000),
     ordinal             BIGINT NOT NULL
 );
-
-
-

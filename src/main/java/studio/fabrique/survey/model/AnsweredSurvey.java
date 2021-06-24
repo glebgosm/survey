@@ -1,6 +1,7 @@
 package studio.fabrique.survey.model;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.MappedCollection;
 import org.springframework.data.relational.core.mapping.Table;
 
@@ -9,8 +10,11 @@ import java.util.List;
 @Table("answered_surveys")
 public class AnsweredSurvey {
     @Id
+    @Column("id")
     private Long id;
+    @Column("survey_id")
     private Long surveyId;
+    @Column("user_id")
     private Long userId;
     @MappedCollection(idColumn = "answered_survey_id", keyColumn = "ordinal")
     private List<Answer> answers;

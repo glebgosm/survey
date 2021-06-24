@@ -1,0 +1,15 @@
+{
+  "surveyId" : 2,
+  "userId" : 1,
+  "answers" :
+  [
+    {
+      "questionId" : 2,
+      "answer" : "Gleb"
+    },
+    {
+      "questionId" : 3,
+      "answer" : "32"
+    }
+  ]
+}
